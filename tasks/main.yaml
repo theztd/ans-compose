@@ -1,0 +1,42 @@
+- name: Prepare users home
+  ansible.builtin.user:
+    name: "{{ project_user }}"
+    shell: /bin/bash
+    groups: docker
+    append: yes
+
+- name: Prepare directory structure
+  file:
+    path: "/home/{{ project_user }}/{{ item }}"
+    state: directory
+    owner: "{{ project_user }}"
+    mode: "0750"
+  with_items: "{{ project_dirs }}"
+
+- name: Deploy compose file
+  copy:
+    content: "{{ project_compose }}"
+    dest: "/home/{{ project_user }}/docker-compose.yaml"
+    owner: "{{ project_user }}"
+    mode: "0640"
+
+- name: Deploy .env file
+  template:
+    src: env.j2
+    dest: "/home/{{ project_user }}/.env"
+    owner: "{{ project_user }}"
+    mode: "0640"
+  when: project_envs
+
+- name: Deploy systemd service
+  template:
+    src: docker-compose.service.j2
+    dest: "/etc/systemd/system/docker-{{ project_user }}.service"
+
+- name: Start service
+  systemd:
+    daemon_reload: yes
+    name: "docker-{{ project_user }}.service"
+    state: started
+    enabled: yes
+
