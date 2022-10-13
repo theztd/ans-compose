@@ -15,11 +15,6 @@ Deploy defined docker compose project to the server.
 
 All variables which can be overridden are stored in [defaults/main.yml](defaults/main.yml) and are listed in the table below.
 
-# project_user: 
-# project_dirs: []
-# project_envs: []
-# project_compose: ""
-
 
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
