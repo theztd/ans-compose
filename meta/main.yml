@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Marek Sirovy
+  description: Deploy and run docker compose under the new user
+  company: Marek Sirovy
+  license: BSD
+
+  min_ansible_version: 2.9
+
+  galaxy_tags: []
+
+dependencies: []
+  # DON'T USE THIS !!!!
