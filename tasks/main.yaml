@@ -7,10 +7,10 @@
 
 - name: Prepare directory structure
   file:
-    path: "/home/{{ project_user }}/{{ item }}"
+    path: "/home/{{ project_user }}/{{ item.path }}"
     state: directory
-    owner: "{{ project_user }}"
-    mode: "0750"
+    owner: "{{ item.owner | default(project_user) }}"
+    mode: "{{ item.mode | default('0750') }}"
   with_items: "{{ project_dirs }}"
 
 - name: Deploy compose file
