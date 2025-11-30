@@ -39,27 +39,29 @@ Use it in a playbook as follows:
   vars:
     project_user: example
     project_dirs:
-    - data
+    - path: data
+      mode: "0750"
+      owner: example
     project_envs:
     # should be in vault
     - "ROOT_PASSWORD: Special-Password.123"
     project_compose: |
-  version: '3.1'
-
-  services:
-
-    adminer:
-      image: adminer
-      restart: always
-      ports:
-        - 8080:8080
-
-    db:
-      image: mysql:5.6
-      restart: always
-      environment:
-        MYSQL_ROOT_PASSWORD: $ROOT_PASSWORD
-      volumes:
-      - /var/lib/mysql:/home/example/data
+      version: '3.1'
+    
+      services:
+    
+        adminer:
+          image: adminer
+          restart: always
+          ports:
+            - 8080:8080
+    
+        db:
+          image: mysql:5.6
+          restart: always
+          environment:
+            MYSQL_ROOT_PASSWORD: $ROOT_PASSWORD
+          volumes:
+          - /var/lib/mysql:/home/example/data
 
 ```
