@@ -12,6 +12,12 @@
 # project_envs:
 # - "ROOT_PASSWORD: Special-Password.123"
 # 
+# project_extra_files
+# - content: |
+#      Nejaky obsah souboru
+#   dest: config/custom.conf
+#   mode: "0640"
+#
 # project_compose: |
 #   version: '3.1'
 # 

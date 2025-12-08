@@ -28,6 +28,17 @@
     mode: "0640"
   when: project_envs
 
+- name: Deploy extra files
+  copy:
+    content: "{{ item.content }}"
+    dest: "/home/{{ project_user }}/{{ item.dest }}"
+    owner: "{{ project_user }}"
+    mode: "{{ item.mode | default('0640') }}"
+  with_items: "{{ project_extra_files | default([]) }}"
+  when: project_extra_files is defined
+  notify:
+    - Restart service
+
 - name: Deploy systemd service
   template:
     src: docker-compose.service.j2
