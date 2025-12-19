@@ -37,7 +37,7 @@
   with_items: "{{ project_extra_files | default([]) }}"
   when: project_extra_files is defined
   notify:
-    - Restart service {{ project_user }}
+    - Restart service
 
 - name: Deploy systemd service
   template:
