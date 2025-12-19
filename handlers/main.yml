@@ -1,0 +1,5 @@
+- name: Restart service {{ project_user }}
+  systemd:
+    daemon_reload: yes
+    name: "docker-{{ project_user }}.service"
+    state: restarted
